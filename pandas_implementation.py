@@ -1,6 +1,8 @@
 import itertools
 import pandas as pd
 
+from shared import INDICES, get_groupings
+
 def get_sum(dataset, status_filter, grouping):
     res = dataset[dataset['status']==status_filter].groupby(
         grouping,
@@ -43,13 +45,6 @@ def format_table(dataset: pd.DataFrame):
 
     return res[['counterparty','tier','max(rating by counterparty)', 'sum(value where status=ARAP)', 'sum(value where status=ACCR)']]
 
-def get_groupings(indices):
-    groupings = []
-    for idx in range(len(indices)):
-        for grouping in itertools.combinations(indices, idx+1):
-            groupings.append(list(grouping))
-    return groupings
-
 def run():
     dataset_1 = pd.read_csv('dataset1.csv')
     dataset_2 = pd.read_csv('dataset2.csv')
@@ -65,10 +60,9 @@ def run():
     data.set_index(['invoice_id'], drop=True, inplace=True)
     data.sort_values('invoice_id', inplace=True)
 
-    indices = ['legal_entity','counter_party','tier']
     full_dataset = None
-    for grouping in get_groupings(indices):
-        remainder_indices = list(set(indices) - set(grouping))
+    for grouping in get_groupings(INDICES):
+        remainder_indices = list(set(INDICES) - set(grouping))
         dataset = concat_data(
             concat_data(
                 get_max(data, grouping),
