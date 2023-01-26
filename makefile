@@ -10,3 +10,6 @@ run:
 
 run-panda:
 	python pandas_implementation.py
+
+run-beam:
+	python beam_implementation.py

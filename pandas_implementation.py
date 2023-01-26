@@ -86,6 +86,6 @@ def run():
         return
 
     full_dataset = format_table(full_dataset)
-    full_dataset.to_csv('report.csv')
+    full_dataset.to_csv('pandas-report.csv')
 
 run()

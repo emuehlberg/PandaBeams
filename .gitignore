@@ -1,1 +1,3 @@
 *.venv
+*-report.csv
+**__pycache__**
