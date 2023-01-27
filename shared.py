@@ -1,5 +1,6 @@
+import itertools
 
-INDICES = ['legal_entity', 'counterparty', 'tier']
+INDICES = ['legal_entity', 'counter_party', 'tier']
 
 def get_groupings(indices):
     groupings = []
