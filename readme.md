@@ -20,3 +20,5 @@ replace `dataset1.csv` and `dataset2.csv` with the desired dataset files and use
 - Could expand to scan for header size on each file and build a 'virtual table' for auto mapping and auto joins based on common headers
 - Report customization
 - Better abstraction and reduction in code duplication
+- Unit tests around utils
+- Integration tests on engines

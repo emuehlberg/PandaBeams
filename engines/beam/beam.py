@@ -78,7 +78,7 @@ class BeamLoader(DataLoader):
                 max_values = (
                     dataset
                     | f'max key - {group_name}' >> beam.Map(lambda row, idx_key: (create_key(row, idx_key), row), idx_key=idx_group)
-                    | f'get max - {group_name}' >> beam.CombinePerKey(get_max)
+                    | f'get max - {group_name}' >> beam.CombinePerKey(get_max)# type: ignore 
                     | f'flatten max - {group_name}' >> beam.Map(lambda group: flatten_data(group))
                 )
 
@@ -86,7 +86,7 @@ class BeamLoader(DataLoader):
                     dataset
                     | f'filter arap - {group_name}' >> beam.Filter(lambda row: row['status']=='ARAP')
                     | f'arap key - {group_name}' >> beam.Map(lambda row, idx_key: (create_key(row, idx_key), row), idx_key=idx_group)
-                    | f'get arap - {group_name}' >> beam.CombinePerKey(get_sum)
+                    | f'get arap - {group_name}' >> beam.CombinePerKey(get_sum)# type: ignore 
                     | f'flatten arap - {group_name}' >> beam.Map(lambda group: flatten_data(group))
                     | f'rename arap - {group_name}' >> beam.Map(lambda row: rename_column(row, 'value', 'sum_arap'))
                 )
@@ -95,7 +95,7 @@ class BeamLoader(DataLoader):
                     dataset
                     | f'filter accr - {group_name}' >> beam.Filter(lambda row: row['status']=='ACCR')
                     | f'accr key - {group_name}' >> beam.Map(lambda row, idx_key: (create_key(row, idx_key), row), idx_key=idx_group)
-                    | f'sum accr - {group_name}' >>  beam.CombinePerKey(get_sum)
+                    | f'sum accr - {group_name}' >>  beam.CombinePerKey(get_sum)# type: ignore 
                     | f'flatten accr - {group_name}' >> beam.Map(lambda group: flatten_data(group))
                     | f'rename accr - {group_name}' >> beam.Map(lambda row: rename_column(row, 'value', 'sum_accr'))
                 )
